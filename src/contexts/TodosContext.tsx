@@ -23,12 +23,9 @@ interface DefaultValue {
 export const TodosContext = createContext<DefaultValue | null>(null);
 
 export default function TodosProvider({ children }: Props) {
-  const initialTodos = JSON.parse(localStorage.getItem("todos") || "[]");
-  const [todos, setTodos] = useState<Todo[]>(initialTodos);
+  const [todos, setTodos] = useLocalStorage<Todo[]>("todos");
   const [edit, setEdit] = useState<Todo>();
   const [input, setInput] = useState<RefObject<HTMLInputElement>>();
-
-  useLocalStorage("todos", JSON.stringify(todos));
 
   const addTodo: AddTodo = (text) => {
     const newTodo = new TodoItem(text);
