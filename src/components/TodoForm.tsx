@@ -3,8 +3,9 @@ import useInput from "../hooks/useInput";
 import { FormEvent } from "react";
 import styles from "./TodoForm.module.css";
 
+import { useEffect } from "react";
 export default function TodoForm() {
-  const { addTodo } = useTodosContext();
+  const { edit, addTodo, editTodo } = useTodosContext();
 
   const [text, setText, bindText] = useInput();
 
@@ -14,9 +15,21 @@ export default function TodoForm() {
     if (!trimText) {
       return;
     }
-    addTodo(trimText);
-    setText("");
+    if (!edit) {
+      addTodo(trimText);
+      setText("");
+      return;
+    }
+    editTodo(text, edit.id);
   };
+
+  useEffect(() => {
+    if (edit) {
+      setText(edit.text);
+    } else {
+      setText("");
+    }
+  }, [edit, setText]);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -30,7 +43,7 @@ export default function TodoForm() {
         {...bindText}
       />
       <button className={styles.button} type="submit">
-        추가
+        {edit ? "수정" : "추가"}
       </button>
     </form>
   );

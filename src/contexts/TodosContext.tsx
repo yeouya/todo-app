@@ -1,11 +1,13 @@
-import { Dispatch, SetStateAction, createContext, useState } from "react";
+import { createContext, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { TodoItem } from "../classes";
 
 interface DefaultValue {
   todos: Todo[];
-  setTodos: Dispatch<SetStateAction<Todo[]>>;
+  edit: Todo | undefined;
   addTodo: AddTodo;
+  editMode: EditMode;
+  editTodo: EditTodo;
   removeTodo: RemoveTodo;
   toggleTodo: ToggleTodo;
 }
@@ -17,12 +19,31 @@ export default function TodosProvider({ children }: Props) {
 
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
 
+  const [edit, setEdit] = useState<Todo | undefined>(undefined);
+
   useLocalStorage("todos", JSON.stringify(todos));
 
   const addTodo: AddTodo = (text) => {
     const newTodo = new TodoItem(text);
     const newTodos = [newTodo, ...todos];
     setTodos(newTodos);
+  };
+
+  const editMode: EditMode = (id) => {
+    const todo = todos.find((todo) => todo.id === id);
+    setEdit(todo);
+  };
+
+  const editTodo: EditTodo = (text, id) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        const editedTodo = new TodoItem(text);
+        return editedTodo;
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+    setEdit(undefined);
   };
 
   const removeTodo: RemoveTodo = (id) => {
@@ -42,7 +63,15 @@ export default function TodosProvider({ children }: Props) {
     setTodos(newTodos);
   };
 
-  const value = { todos, setTodos, addTodo, removeTodo, toggleTodo };
+  const value = {
+    todos,
+    edit,
+    addTodo,
+    editMode,
+    editTodo,
+    removeTodo,
+    toggleTodo,
+  };
 
   return (
     <TodosContext.Provider value={value}>{children}</TodosContext.Provider>

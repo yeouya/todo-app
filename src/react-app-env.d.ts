@@ -15,6 +15,14 @@ interface AddTodo {
   (text: string): void;
 }
 
+interface EditMode {
+  (id: string): void;
+}
+
+interface EditTodo {
+  (text: string, id: string): void;
+}
+
 interface RemoveTodo {
   (id: string): void;
 }
