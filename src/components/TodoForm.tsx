@@ -1,12 +1,12 @@
+import { useRef, useEffect } from "react";
 import useTodosContext from "../hooks/useTodosContext";
 import useInput from "../hooks/useInput";
 import { FormEvent } from "react";
 import styles from "./TodoForm.module.css";
 
-import { useEffect } from "react";
 export default function TodoForm() {
-  const { edit, addTodo, editTodo } = useTodosContext();
-
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { edit, setInput, addTodo, editTodo } = useTodosContext();
   const [text, setText, bindText] = useInput();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -18,9 +18,9 @@ export default function TodoForm() {
     if (!edit) {
       addTodo(trimText);
       setText("");
-      return;
+    } else {
+      editTodo(text, edit.id);
     }
-    editTodo(text, edit.id);
   };
 
   useEffect(() => {
@@ -29,7 +29,8 @@ export default function TodoForm() {
     } else {
       setText("");
     }
-  }, [edit, setText]);
+    setInput(inputRef);
+  }, [edit, setText, setInput]);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -40,6 +41,7 @@ export default function TodoForm() {
         placeholder="오늘 할 일은..."
         autoFocus
         required
+        ref={inputRef}
         {...bindText}
       />
       <button className={styles.button} type="submit">

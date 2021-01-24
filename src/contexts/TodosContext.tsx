@@ -1,10 +1,18 @@
-import { createContext, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  RefObject,
+  createContext,
+  useState,
+} from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { TodoItem } from "../classes";
 
 interface DefaultValue {
   todos: Todo[];
   edit: Todo | undefined;
+  input: RefObject<HTMLInputElement> | undefined;
+  setInput: Dispatch<SetStateAction<RefObject<HTMLInputElement> | undefined>>;
   addTodo: AddTodo;
   editMode: EditMode;
   editTodo: EditTodo;
@@ -16,10 +24,9 @@ export const TodosContext = createContext<DefaultValue | null>(null);
 
 export default function TodosProvider({ children }: Props) {
   const initialTodos = JSON.parse(localStorage.getItem("todos") || "[]");
-
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
-
-  const [edit, setEdit] = useState<Todo | undefined>(undefined);
+  const [edit, setEdit] = useState<Todo>();
+  const [input, setInput] = useState<RefObject<HTMLInputElement>>();
 
   useLocalStorage("todos", JSON.stringify(todos));
 
@@ -31,6 +38,7 @@ export default function TodosProvider({ children }: Props) {
 
   const editMode: EditMode = (id) => {
     const todo = todos.find((todo) => todo.id === id);
+    input?.current?.focus();
     setEdit(todo);
   };
 
@@ -69,6 +77,8 @@ export default function TodosProvider({ children }: Props) {
   const value = {
     todos,
     edit,
+    input,
+    setInput,
     addTodo,
     editMode,
     editTodo,

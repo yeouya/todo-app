@@ -10,7 +10,6 @@ interface TodoItemProps extends Props {
 
 export default function TodoItem({ todo }: TodoItemProps) {
   const { id, text, isDone, currentTime } = todo;
-
   const { editMode, removeTodo, toggleTodo } = useTodosContext();
 
   return (
