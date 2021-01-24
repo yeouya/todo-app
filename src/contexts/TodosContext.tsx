@@ -35,8 +35,8 @@ export default function TodosProvider({ children }: Props) {
 
   const editMode: EditMode = (id) => {
     const todo = todos.find((todo) => todo.id === id);
-    input?.current?.focus();
     setEdit(todo);
+    input?.current?.focus();
   };
 
   const editTodo: EditTodo = (text, id) => {
@@ -57,6 +57,7 @@ export default function TodosProvider({ children }: Props) {
     if (edit !== undefined && edit.id === id) {
       setEdit(undefined);
     }
+    input?.current?.focus();
   };
 
   const toggleTodo: ToggleTodo = (selectedTodo) => {
