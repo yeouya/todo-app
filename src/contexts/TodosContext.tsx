@@ -49,6 +49,9 @@ export default function TodosProvider({ children }: Props) {
   const removeTodo: RemoveTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
+    if (edit !== undefined && edit.id === id) {
+      setEdit(undefined);
+    }
   };
 
   const toggleTodo: ToggleTodo = (selectedTodo) => {
