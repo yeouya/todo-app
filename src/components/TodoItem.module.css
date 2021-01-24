@@ -1,0 +1,32 @@
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 1.6rem;
+}
+
+.item > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.item > div > button {
+  border: none;
+  background: none;
+}
+
+.item > label {
+  line-height: 1.5;
+}
+
+.item > label > input {
+  margin-right: 0.8rem;
+}
+
+.done {
+  color: gainsboro;
+  text-decoration: line-through;
+}

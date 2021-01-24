@@ -1,0 +1,22 @@
+.form {
+  display: flex;
+  border: 0.1rem solid #717171;
+  border-radius: 0.4rem;
+  overflow: hidden;
+  margin-bottom: 2.4rem;
+}
+
+.input {
+  flex: 1;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: none;
+  outline: none;
+}
+
+.button {
+  padding: 0 0.8rem;
+  border: none;
+  border-left: 0.1rem solid #717171;
+  background: #f9f9f9;
+}
