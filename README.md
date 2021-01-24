@@ -42,7 +42,7 @@ interface Todo {
   currentTime: string;
 }
 
-const [todo, setTodo] = useState<Todo>()
+const [todo, setTodo] = useState<Todo>();
 ```
 
 결국 이렇게 만들어진 Todo | undefined 타입의 값을 사용하기 위해선 반드시 아래의 과정을 거쳐야한다.
@@ -91,6 +91,7 @@ export default function useLocalStorage<T>(key: string) {
   return result;
 }
 ```
+
 사용법은 useState 와 거의 동일한데, 인자를 넘겨주는 부분만 초기값 대신 데이터 저장에 사용할 키 값을 문자열로 전달하면 된다.
 
 ex) `const [todos, setTodos] = useLocalStorage<Todo[]>("todos")`
@@ -103,6 +104,4 @@ ex) `const [todos, setTodos] = useLocalStorage<Todo[]>("todos")`
 
 따라서 논리연산자 `||` 로 빈 문자열을 기본값으로 전달하도록 해주었다.
 
-이 부분은 아무래도 타입스크립트를 많이 써보면서 익숙해지는수밖에 없을 것 같다.
-
-
+이 부분은 아무래도 타입스크립트를 많이 써보면서 익숙해져야 할 것 같다.
