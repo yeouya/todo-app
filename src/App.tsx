@@ -1,7 +1,14 @@
-import styles from "./App.module.css";
+import TodosProvider from "./contexts/TodosContext";
+import GlobalHeader from "./components/GlobalHeader";
+import Home from "./pages/Home";
+import GlobalFooter from "./components/GlobalFooter";
 
-function App() {
-  return <div></div>;
+export default function App() {
+  return (
+    <TodosProvider>
+      <GlobalHeader />
+      <Home />
+      <GlobalFooter />
+    </TodosProvider>
+  );
 }
-
-export default App;

@@ -13,7 +13,10 @@ export default function useInput(initialValue = "") {
   const [state, setState] = useState(initialValue);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setState(e.target.value);
+    const {
+      target: { value },
+    } = e;
+    setState(value);
   };
 
   const bindState = { value: state, onChange: handleChange };
