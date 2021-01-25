@@ -92,7 +92,8 @@ export default function useLocalStorage<T>(key: string) {
 }
 ```
 
-사용법은 useState 와 거의 동일한데, 인자를 넘겨주는 부분만 초기값 대신 데이터 저장에 사용할 키 값을 문자열로 전달하면 된다.
+사용법은 useState 와 거의 동일한데, 인자를 넘겨주는 부분만 초기값 대신
+데이터 저장과 열람에 사용할 키 값을 문자열로 전달하면 된다.
 
 ex) `const [todos, setTodos] = useLocalStorage<Todo[]>("todos")`
 
