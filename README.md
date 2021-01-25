@@ -100,7 +100,7 @@ ex) `const [todos, setTodos] = useLocalStorage<Todo[]>("todos")`
 
 `localStorage.getItem()` 함수의 반환 타입이 `string | null` 이기 때문에
 
-`string` 타입만을 인자로 받는 JSON.parse() 함수엔 전달할 수 없다.
+`string` 타입만을 인자로 받는 `JSON.parse()` 함수엔 전달할 수 없다.
 
 따라서 논리연산자 `||` 로 빈 문자열을 기본값으로 전달하도록 해주었다.
 
